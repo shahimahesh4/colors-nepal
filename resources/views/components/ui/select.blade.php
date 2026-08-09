@@ -1,0 +1,28 @@
+@props([
+    'label',
+    'name',
+    'help' => null,
+    'required' => false,
+])
+
+<label class="block">
+    <span class="mb-2 block text-sm font-semibold text-slate-800">
+        {{ $label }}
+        @if ($required)<span class="text-red-600" aria-hidden="true">*</span>@endif
+    </span>
+
+    <select
+        name="{{ $name }}"
+        @required($required)
+        @if ($errors->has($name)) aria-invalid="true" aria-describedby="{{ $name }}-error" @elseif ($help) aria-describedby="{{ $name }}-help" @endif
+        {{ $attributes->class('min-h-11 w-full rounded-control border border-slate-300 bg-white px-3.5 py-2.5 text-slate-950 shadow-sm hover:border-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100') }}
+    >
+        {{ $slot }}
+    </select>
+
+    @error($name)
+        <span id="{{ $name }}-error" class="mt-2 block text-sm text-red-700">{{ $message }}</span>
+    @elseif ($help)
+        <span id="{{ $name }}-help" class="mt-2 block text-sm text-slate-500">{{ $help }}</span>
+    @enderror
+</label>
