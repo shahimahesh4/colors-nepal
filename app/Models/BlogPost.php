@@ -2,15 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\DeletesUploadedFiles;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BlogPost extends Model
 {
-    use HasFactory;
+    use DeletesUploadedFiles, HasFactory;
 
-    protected $fillable = ['user_id', 'blog_category_id', 'title', 'slug', 'excerpt', 'content', 'featured_image', 'status', 'published_at', 'meta_title', 'meta_description'];
+    protected $fillable = ['user_id', 'blog_category_id', 'title', 'slug', 'excerpt', 'content', 'featured_image', 'status', 'published_at', 'meta_title', 'meta_description', 'meta_keywords', 'og_image'];
+
+
+    protected function uploadedFileAttributes(): array
+    {
+        return ['featured_image', 'og_image'];
+    }
 
     protected function casts(): array
     {

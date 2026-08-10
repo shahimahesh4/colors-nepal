@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Filament\Resources\ServiceResource\RelationManagers\FaqsRelationManager;
 use App\Filament\Resources\ServiceResource\RelationManagers\FeaturesRelationManager;
@@ -14,6 +16,7 @@ use Filament\Tables\Table;
 
 class ServiceResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = Service::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
@@ -31,6 +34,7 @@ class ServiceResource extends Resource
                 Forms\Components\Textarea::make('summary')->required()->rows(3)->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')->columnSpanFull(),
                 Forms\Components\TextInput::make('icon')->maxLength(255),
+                Forms\Components\FileUpload::make('image')->label('Service image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services')->imageEditor(),
                 Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
                 Forms\Components\Toggle::make('is_featured')->default(false),
                 Forms\Components\TextInput::make('sort_order')->numeric()->minValue(0)->required()->default(0),
@@ -38,6 +42,8 @@ class ServiceResource extends Resource
             Forms\Components\Section::make('SEO')->schema([
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->rows(3),
+                Forms\Components\TextInput::make('meta_keywords')->helperText('Separate keywords with commas.')->columnSpanFull(),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services/og')->imageEditor()->helperText('Optional. Uses the service image, then the default OG image when empty.'),
             ])->columns(2)->collapsed(),
         ]);
     }

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\QuoteRequestResource\Pages;
 use App\Models\QuoteRequest;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class QuoteRequestResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = QuoteRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';

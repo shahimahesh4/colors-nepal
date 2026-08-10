@@ -1,14 +1,16 @@
 <x-layouts.app
     :title="$service->meta_title ?: $service->title"
     :description="$service->meta_description ?: $service->summary"
+    :keywords="$service->meta_keywords"
+    :image="$service->og_image ? asset('storage/'.$service->og_image) : ($service->image ? asset('storage/'.$service->image) : null)"
 >
-    <section class="relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
+    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
         <div class="absolute -left-24 bottom-0 size-72 rounded-full bg-accent-500/15 blur-3xl" aria-hidden="true"></div>
         <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a href="{{ route('home') }}" class="hover:text-white">Home</a>
+                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
                 <span class="mx-2" aria-hidden="true">/</span>
-                <a href="{{ route('services.index') }}" class="hover:text-white">Services</a>
+                <a wire:navigate href="{{ route('services.index') }}" class="hover:text-white">Services</a>
                 <span class="mx-2" aria-hidden="true">/</span>
                 <span aria-current="page">{{ $service->title }}</span>
             </nav>
@@ -21,6 +23,9 @@
         </div>
     </section>
 
+    @if ($service->image)
+        <div class="bg-ink-950 pb-12 sm:pb-16"><div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"><img src="{{ asset('storage/'.$service->image) }}" alt="{{ $service->title }}" class="aspect-[16/9] w-full rounded-feature object-cover shadow-2xl"></div></div>
+    @endif
     @if ($service->features->isNotEmpty())
         <section class="py-20 sm:py-24">
             <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -39,7 +44,7 @@
     @endif
 
     @if ($service->content)
-        <section class="bg-slate-50 py-20 sm:py-24">
+        <section class="brand-surface py-20 sm:py-24">
             <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">
                 <div>
                     <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-700">Service details</p>
@@ -56,7 +61,7 @@
         <section class="py-20 sm:py-24">
             <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <x-ui.section-heading eyebrow="Frequently asked questions" title="Helpful details before we begin." align="center" />
-                <div class="mt-10 divide-y divide-slate-200 rounded-card border border-slate-200 bg-white px-5 sm:px-7">
+                <div class="mt-10 divide-y divide-slate-200 brand-panel rounded-card border border-brand-100 bg-white px-5 sm:px-7">
                     @foreach ($service->faqs as $faq)
                         <details class="group py-5">
                             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-ink-950 [&::-webkit-details-marker]:hidden">
@@ -72,7 +77,7 @@
     @endif
 
     <section class="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
-        <div class="mx-auto max-w-6xl rounded-feature bg-brand-600 px-6 py-12 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
+        <div class="mx-auto max-w-6xl rounded-feature color-spectrum px-6 py-12 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
             <div class="max-w-2xl">
                 <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-100">Next step</p>
                 <h2 class="mt-3 text-3xl font-bold">Let us shape the right scope together.</h2>

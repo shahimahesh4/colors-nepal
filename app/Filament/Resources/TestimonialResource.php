@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\TestimonialResource\Pages;
 use App\Models\Testimonial;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class TestimonialResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = Testimonial::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
@@ -28,7 +31,7 @@ class TestimonialResource extends Resource
             Forms\Components\TextInput::make('company')->maxLength(255),
             Forms\Components\Select::make('rating')->options([1 => '1 star', 2 => '2 stars', 3 => '3 stars', 4 => '4 stars', 5 => '5 stars'])->required()->default(5),
             Forms\Components\Textarea::make('content')->required()->rows(5)->columnSpanFull(),
-            Forms\Components\FileUpload::make('avatar')->image()->avatar()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(2048)->directory('testimonials'),
+            Forms\Components\FileUpload::make('avatar')->image()->avatar()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(2048)->disk('public')->visibility('public')->directory('testimonials'),
             Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
             Forms\Components\Toggle::make('is_featured')->default(false),
             Forms\Components\TextInput::make('sort_order')->numeric()->minValue(0)->required()->default(0),

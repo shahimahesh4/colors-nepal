@@ -2,11 +2,11 @@
     title="Services"
     description="Explore Colors Nepal services for website design and development, digital marketing, SEO, social media, hosting, domains, and maintenance."
 >
-    <section class="relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
+    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
         <div class="absolute -right-24 -top-24 size-80 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true"></div>
         <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a href="{{ route('home') }}" class="hover:text-white">Home</a>
+                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
                 <span class="mx-2" aria-hidden="true">/</span>
                 <span aria-current="page">Services</span>
             </nav>
@@ -18,24 +18,27 @@
         </div>
     </section>
 
-    <section class="py-20 sm:py-24">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section class="service-showcase">
+        <div class="service-showcase__dots service-showcase__dots--left" aria-hidden="true"></div>
+        <div class="service-showcase__ring" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             @if ($services->isNotEmpty())
-                <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                     @foreach ($services as $service)
-                        <x-ui.card interactive class="group flex h-full flex-col">
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm font-bold text-brand-600">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-                                @if ($service->is_featured)<x-ui.badge>Featured</x-ui.badge>@endif
-                            </div>
-                            <h2 class="mt-8 text-2xl font-bold text-ink-950">
-                                <a href="{{ route('services.show', $service) }}" class="rounded-control">{{ $service->title }}</a>
+                        <article class="service-card group" style="--service-delay: {{ $loop->index * 90 }}ms">
+                            @if ($service->is_featured)
+                                <x-ui.badge class="absolute right-4 top-4">Featured</x-ui.badge>
+                            @endif
+                            <x-service-icon :index="$loop->index" />
+                            <h2 class="service-card__title">
+                                <a wire:navigate href="{{ route('services.show', $service) }}" class="after:absolute after:inset-0">{{ $service->title }}</a>
                             </h2>
-                            <p class="mt-4 flex-1 leading-7 text-slate-600">{{ $service->summary }}</p>
-                            <a href="{{ route('services.show', $service) }}" class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-700">
-                                Explore service <span aria-hidden="true">-&gt;</span>
-                            </a>
-                        </x-ui.card>
+                            <p class="service-card__copy">{{ $service->summary }}</p>
+                            <span class="service-card__link">
+                                Learn more
+                                <svg class="service-card__arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7 4 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                        </article>
                     @endforeach
                 </div>
             @else
@@ -43,9 +46,8 @@
             @endif
         </div>
     </section>
-
     <section class="px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
-        <div class="mx-auto max-w-6xl rounded-feature bg-brand-50 px-6 py-12 sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
+        <div class="mx-auto max-w-6xl brand-panel brand-surface rounded-feature border border-brand-100 px-6 py-12 sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
             <div class="max-w-2xl">
                 <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-700">Not sure where to begin?</p>
                 <h2 class="mt-3 text-3xl font-bold text-ink-950">Start with the business goal.</h2>

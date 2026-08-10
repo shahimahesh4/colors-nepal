@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerQuoteController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteRequestController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\ServiceController;
+use App\Livewire\PageShow;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -25,16 +27,18 @@ Route::get('/portfolio/{project:slug}', [PortfolioController::class, 'show'])->n
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
-Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha'])->name('contact.store');
 Route::get('/request-quote', [QuoteRequestController::class, 'create'])->name('quote.create');
-Route::post('/request-quote', [QuoteRequestController::class, 'store'])->middleware('throttle:5,1')->name('quote.store');
+Route::post('/request-quote', [QuoteRequestController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha'])->name('quote.store');
 Route::get('/hosting', [HostingDomainController::class, 'hosting'])->name('hosting.index');
 Route::get('/domains', [HostingDomainController::class, 'domains'])->name('domains.index');
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('throttle:5,1');
+    Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha']);
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:5,1');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware(['throttle:5,1', 'recaptcha']);
+    Route::get('/verify-otp', [OtpController::class, 'create'])->name('otp.create');
+    Route::post('/verify-otp', [OtpController::class, 'store'])->middleware('throttle:5,1')->name('otp.verify');
 });
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -46,3 +50,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
+
+Route::get('/{page:slug}', PageShow::class)->where('page', '[A-Za-z0-9-]+')->name('pages.show');

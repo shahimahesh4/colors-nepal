@@ -69,6 +69,7 @@ class PortfolioPagesTest extends TestCase
             'technologies' => ['Laravel', 'Tailwind CSS'],
             'meta_title' => 'Digital Growth Platform Case Study',
             'meta_description' => 'A focused digital growth case study.',
+            'meta_keywords' => 'digital growth, Laravel portfolio',
         ]);
 
         $this->get(route('portfolio.show', $project))
@@ -76,7 +77,8 @@ class PortfolioPagesTest extends TestCase
             ->assertSee('Digital Growth Platform Case Study', false)
             ->assertSee('Niwax Studio')
             ->assertSee('Laravel')
-            ->assertSee('Tailwind CSS');
+            ->assertSee('Tailwind CSS')
+            ->assertSee('digital growth, Laravel portfolio');
     }
 
     public function test_draft_portfolio_project_detail_returns_not_found(): void

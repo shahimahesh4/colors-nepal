@@ -1,12 +1,14 @@
 <x-layouts.app
     :title="$project->meta_title ?: $project->title"
     :description="$project->meta_description ?: $project->summary"
+    :keywords="$project->meta_keywords"
+    :image="$project->og_image ? asset('storage/'.$project->og_image) : ($project->cover_image ? asset('storage/'.$project->cover_image) : null)"
 >
-    <section class="bg-ink-950 py-16 text-white sm:py-20">
+    <section class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span>
-                <a href="{{ route('portfolio.index') }}" class="hover:text-white">Portfolio</a><span class="mx-2" aria-hidden="true">/</span>
+                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span>
+                <a wire:navigate href="{{ route('portfolio.index') }}" class="hover:text-white">Portfolio</a><span class="mx-2" aria-hidden="true">/</span>
                 <span aria-current="page">{{ $project->title }}</span>
             </nav>
             <div class="mt-8 max-w-4xl">
@@ -30,7 +32,7 @@
     <section class="py-20 sm:py-24">
         <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">
             <aside>
-                <div class="rounded-card border border-slate-200 p-6">
+                <div class="brand-panel rounded-card border border-brand-100 p-6">
                     <h2 class="font-bold text-ink-950">Project details</h2>
                     <dl class="mt-5 grid gap-5 text-sm">
                         @if ($project->client_name)<div><dt class="text-slate-500">Client</dt><dd class="mt-1 font-semibold text-slate-900">{{ $project->client_name }}</dd></div>@endif
@@ -59,14 +61,14 @@
     </section>
 
     @if ($relatedProjects->isNotEmpty())
-        <section class="bg-slate-50 py-20 sm:py-24">
+        <section class="brand-surface py-20 sm:py-24">
             <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <x-ui.section-heading eyebrow="More work" title="Related projects." />
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
                     @foreach ($relatedProjects as $related)
                         <x-ui.card interactive>
                             <p class="text-xs font-bold uppercase tracking-wider text-brand-600">{{ $related->category?->name ?? 'Project' }}</p>
-                            <h2 class="mt-3 text-xl font-bold text-ink-950"><a href="{{ route('portfolio.show', $related) }}">{{ $related->title }}</a></h2>
+                            <h2 class="mt-3 text-xl font-bold text-ink-950"><a wire:navigate href="{{ route('portfolio.show', $related) }}">{{ $related->title }}</a></h2>
                             <p class="mt-3 text-sm leading-6 text-slate-600">{{ $related->summary }}</p>
                         </x-ui.card>
                     @endforeach
@@ -76,7 +78,7 @@
     @endif
 
     <section class="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-        <div class="mx-auto max-w-6xl rounded-feature bg-brand-600 px-6 py-12 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
+        <div class="mx-auto max-w-6xl rounded-feature color-spectrum px-6 py-12 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:px-14">
             <div><p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-100">Have a similar challenge?</p><h2 class="mt-3 text-3xl font-bold">Let us explore a practical solution.</h2></div>
             <div class="mt-8 lg:mt-0"><x-ui.button href="{{ url('/request-quote') }}" variant="secondary" size="lg" class="border-white bg-white text-brand-700 hover:bg-brand-50">Discuss your project</x-ui.button></div>
         </div>

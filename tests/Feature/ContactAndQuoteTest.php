@@ -17,7 +17,7 @@ class ContactAndQuoteTest extends TestCase
     {
         Notification::fake();
 
-        $this->get(route('contact.create'))->assertOk()->assertSee('Send message');
+        $this->get(route('contact.create'))->assertOk()->assertSee('Send message')->assertSee('hello@colorsnepal.com')->assertSee('+977 9800000000')->assertSee('Kathmandu, Nepal');
 
         $response = $this->post(route('contact.store'), [
             'name' => 'Asha Sharma',
@@ -33,7 +33,13 @@ class ContactAndQuoteTest extends TestCase
             'subject' => 'Website redesign',
             'status' => 'new',
         ]);
-        Notification::assertSentOnDemand(LeadSubmitted::class);
+        Notification::assertSentOnDemand(LeadSubmitted::class, function (LeadSubmitted $notification): bool {
+            $mail = $notification->toMail((object) []);
+
+            return $mail->view === 'emails.lead-submitted'
+                && $mail->viewData['name'] === 'Asha Sharma'
+                && $mail->viewData['contactEmail'] !== null;
+        });
     }
 
     public function test_contact_submission_is_validated(): void

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
@@ -26,8 +29,9 @@ class UserResource extends Resource
         return $form->schema([
             Forms\Components\TextInput::make('name')->required()->maxLength(255),
             Forms\Components\TextInput::make('email')->email()->required()->maxLength(255)->unique(ignoreRecord: true),
+            Forms\Components\TextInput::make('phone')->tel()->maxLength(20)->unique(ignoreRecord: true),
             Forms\Components\TextInput::make('password')->password()->revealable()->required(fn (string $operation): bool => $operation === 'create')->dehydrated(fn (?string $state): bool => filled($state))->dehydrateStateUsing(fn (string $state): string => Hash::make($state)),
-            Forms\Components\Toggle::make('is_admin')->label('Administrator')->default(false),
+            Forms\Components\Select::make('role')->options(['admin' => 'Admin', 'staff' => 'Staff', 'customer' => 'Customer'])->default('customer')->required()->helperText('Admins always have full access. Staff and customer access follows Role Permissions.'),
         ])->columns(2);
     }
 
@@ -36,9 +40,10 @@ class UserResource extends Resource
         return $table->columns([
             Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
             Tables\Columns\TextColumn::make('email')->searchable()->sortable(),
-            Tables\Columns\IconColumn::make('is_admin')->label('Admin')->boolean()->sortable(),
+            Tables\Columns\TextColumn::make('phone')->searchable(),
+            Tables\Columns\TextColumn::make('role')->badge()->formatStateUsing(fn (?string $state): string => str($state ?: 'customer')->headline())->color(fn (?string $state): string => match ($state) { 'admin' => 'danger', 'staff' => 'warning', default => 'gray' })->sortable(),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
-        ])->filters([Tables\Filters\TernaryFilter::make('is_admin')->label('Administrator')])
+        ])->filters([Tables\Filters\SelectFilter::make('role')->options(['admin' => 'Admin', 'staff' => 'Staff', 'customer' => 'Customer'])])
             ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([]);
     }

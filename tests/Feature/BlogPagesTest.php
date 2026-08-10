@@ -48,6 +48,7 @@ class BlogPagesTest extends TestCase
             'slug' => 'digital-strategy-guide',
             'meta_title' => 'Digital Strategy Guide for Nepal',
             'meta_description' => 'Practical digital strategy guidance.',
+            'meta_keywords' => 'digital strategy, Nepal',
         ]);
 
         $this->get(route('blog.show', $post))
@@ -55,7 +56,8 @@ class BlogPagesTest extends TestCase
             ->assertSee('Digital Strategy Guide for Nepal', false)
             ->assertSee('Practical digital strategy guidance.', false)
             ->assertSee('application/ld+json', false)
-            ->assertSee('https://schema.org', false);
+            ->assertSee('https://schema.org', false)
+            ->assertSee('digital strategy, Nepal');
     }
 
     public function test_draft_and_future_blog_posts_return_not_found(): void

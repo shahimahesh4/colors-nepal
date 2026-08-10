@@ -8,7 +8,7 @@
 @endphp
 
 <div {{ $attributes->class([
-    'rounded-card border border-slate-200 bg-white',
+    'brand-panel rounded-card border border-brand-100 bg-white',
     'transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card-hover' => $interactive,
     $paddingClasses[$padding] ?? $paddingClasses['md'],
 ]) }}>

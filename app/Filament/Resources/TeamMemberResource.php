@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\TeamMemberResource\Pages;
 use App\Models\TeamMember;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class TeamMemberResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = TeamMember::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
@@ -28,7 +31,7 @@ class TeamMemberResource extends Resource
             Forms\Components\TextInput::make('role')->required()->maxLength(255),
             Forms\Components\TextInput::make('email')->email()->maxLength(255),
             Forms\Components\Textarea::make('bio')->rows(5)->columnSpanFull(),
-            Forms\Components\FileUpload::make('photo')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->directory('team')->imageEditor(),
+            Forms\Components\FileUpload::make('photo')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('team')->imageEditor(),
             Forms\Components\TextInput::make('linkedin_url')->url()->maxLength(255),
             Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
             Forms\Components\TextInput::make('sort_order')->numeric()->minValue(0)->required()->default(0),

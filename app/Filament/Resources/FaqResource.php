@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\FaqResource\Pages;
 use App\Models\Faq;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class FaqResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = Faq::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';

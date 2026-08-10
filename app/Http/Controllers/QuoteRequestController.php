@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Models\QuoteRequest;
 use App\Notifications\LeadSubmitted;
+use App\Services\AdminNotifier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
@@ -49,6 +50,7 @@ class QuoteRequestController extends Controller
         Notification::route('mail', config('mail.to.address'))->notify(
             LeadSubmitted::forQuote($quote)
         );
+        app(AdminNotifier::class)->send('New quote request', $quote->name.' submitted a project request.', url('/stnapanel/quote-requests/'.$quote->getKey().'/edit'));
 
         return to_route('quote.create')->with('success', 'Thank you. Your project request has been received.');
     }

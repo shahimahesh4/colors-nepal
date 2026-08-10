@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\ContentLists;
+
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,7 +12,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -27,19 +29,32 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('stnapanel')
             ->login()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#0066CC'),
+                'danger' => Color::hex('#E63980'),
+                'warning' => Color::hex('#FF8A00'),
+                'success' => Color::hex('#00B4A6'),
+                'info' => Color::hex('#0066CC'),
             ])
+            ->brandName('Colors Nepal')
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => view('filament.admin-theme')->render(),
+            )
+            ->renderHook(
+                PanelsRenderHook::USER_MENU_BEFORE,
+                fn (): string => view('filament.topbar-links')->render(),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            ->widgets([ContentLists::class])
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

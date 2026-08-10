@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\DeletesUploadedFiles;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-    use HasFactory;
+    use DeletesUploadedFiles, HasFactory;
 
-    protected $fillable = ['title', 'slug', 'summary', 'content', 'icon', 'status', 'is_featured', 'sort_order', 'meta_title', 'meta_description'];
+    protected $fillable = ['title', 'slug', 'summary', 'content', 'icon', 'image', 'status', 'is_featured', 'sort_order', 'meta_title', 'meta_description', 'meta_keywords', 'og_image'];
+
+    protected function uploadedFileAttributes(): array
+    {
+        return ['image', 'og_image'];
+    }
 
     protected function casts(): array
     {

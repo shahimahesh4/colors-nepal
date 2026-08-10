@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\PortfolioCategoryResource\Pages;
 use App\Models\PortfolioCategory;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class PortfolioCategoryResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = PortfolioCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';

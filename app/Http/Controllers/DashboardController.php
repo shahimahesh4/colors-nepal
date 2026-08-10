@@ -9,6 +9,21 @@ class DashboardController extends Controller
 {
     public function __invoke(Request $request): View
     {
-        return view('dashboard.index', ['quotes' => $request->user()->quoteRequests()->latest()->paginate(10)]);
+        $user = $request->user();
+        $quotesQuery = $user->quoteRequests()->latest();
+        $statusCounts = (clone $quotesQuery)
+            ->selectRaw('status, count(*) as aggregate')
+            ->groupBy('status')
+            ->pluck('aggregate', 'status');
+
+        return view('dashboard.index', [
+            'quotes' => $quotesQuery->paginate(10),
+            'stats' => [
+                'total' => $statusCounts->sum(),
+                'new' => $statusCounts->get('new', 0),
+                'active' => $statusCounts->only(['reviewing', 'quoted'])->sum(),
+                'completed' => $statusCounts->get('won', 0),
+            ],
+        ]);
     }
 }

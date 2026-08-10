@@ -27,6 +27,7 @@ class FrontendDesignSystemTest extends TestCase
 
         $this->assertStringContainsString('href="/contact"', $html);
         $this->assertStringContainsString('Published', $html);
+        $this->assertStringContainsString('brand-action', $html);
         $this->assertStringContainsString('role="status"', $html);
         $this->assertStringContainsString('Card content', $html);
         $this->assertStringContainsString('What we do', $html);

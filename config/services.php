@@ -28,6 +28,12 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'sparrow' => [
+        'url' => env('SPARROW_SMS_URL', 'https://api.sparrowsms.com/v2/sms/'),
+        'token' => env('SPARROW_SMS_TOKEN'),
+        'from' => env('SPARROW_SMS_FROM'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

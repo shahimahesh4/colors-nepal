@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\DomainTldResource\Pages;
 use App\Models\DomainTld;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class DomainTldResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = DomainTld::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';

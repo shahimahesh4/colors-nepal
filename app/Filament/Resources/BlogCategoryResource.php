@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\BlogCategoryResource\Pages;
 use App\Models\BlogCategory;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class BlogCategoryResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = BlogCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreContactMessageRequest;
 use App\Models\ContactMessage;
 use App\Notifications\LeadSubmitted;
+use App\Services\AdminNotifier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
@@ -29,6 +30,7 @@ class ContactController extends Controller
         Notification::route('mail', config('mail.to.address'))->notify(
             LeadSubmitted::forContact($message)
         );
+        app(AdminNotifier::class)->send('New contact message', $message->name.' sent a website enquiry.', url('/stnapanel/contact-messages/'.$message->getKey().'/edit'));
 
         return to_route('contact.create')->with('success', 'Thank you. Your message has been received.');
     }

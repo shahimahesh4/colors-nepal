@@ -33,7 +33,7 @@ class AdminPanelAccessTest extends TestCase
     {
         $this->actingAs(User::factory()->admin()->create());
 
-        foreach (['site-settings', 'services', 'portfolio-categories', 'portfolio-projects', 'testimonials', 'team-members', 'faqs', 'blog-categories', 'blog-posts', 'contact-messages', 'quote-requests', 'hosting-plans', 'domain-tlds', 'users'] as $resource) {
+        foreach (['pages', 'site-settings', 'services', 'portfolio-categories', 'portfolio-projects', 'testimonials', 'team-members', 'faqs', 'blog-categories', 'blog-posts', 'contact-messages', 'quote-requests', 'hosting-plans', 'domain-tlds', 'users'] as $resource) {
             $this->get("/stnapanel/{$resource}")->assertOk();
         }
     }

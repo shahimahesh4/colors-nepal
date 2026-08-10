@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Concerns\AuthorizesRolePermissions;
+
 use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
 use Filament\Forms;
@@ -12,6 +14,7 @@ use Filament\Tables\Table;
 
 class BlogPostResource extends Resource
 {
+    use AuthorizesRolePermissions;
     protected static ?string $model = BlogPost::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -30,13 +33,15 @@ class BlogPostResource extends Resource
                 Forms\Components\TextInput::make('slug')->required()->maxLength(255)->unique(ignoreRecord: true),
                 Forms\Components\Textarea::make('excerpt')->required()->rows(3)->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')->required()->columnSpanFull(),
-                Forms\Components\FileUpload::make('featured_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->directory('blog')->imageEditor(),
+                Forms\Components\FileUpload::make('featured_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog')->imageEditor(),
                 Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
                 Forms\Components\DateTimePicker::make('published_at')->seconds(false),
             ])->columns(2),
             Forms\Components\Section::make('SEO')->schema([
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->rows(3),
+                Forms\Components\TextInput::make('meta_keywords')->helperText('Separate keywords with commas.')->columnSpanFull(),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog/og')->imageEditor()->helperText('Optional. Uses the featured image, then the default OG image when empty.'),
             ])->columns(2)->collapsed(),
         ]);
     }

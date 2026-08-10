@@ -26,17 +26,20 @@
 <x-layouts.app
     :title="$post->meta_title ?: $post->title"
     :description="$post->meta_description ?: $post->excerpt"
+    :keywords="$post->meta_keywords"
+    :image="$post->og_image ? asset('storage/'.$post->og_image) : ($post->featured_image ? asset('storage/'.$post->featured_image) : null)"
+    type="article"
 >
     <x-slot:head>
         <script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     </x-slot:head>
 
     <article>
-        <header class="bg-ink-950 py-16 text-white sm:py-20">
+        <header class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
             <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                    <a href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span>
-                    <a href="{{ route('blog.index') }}" class="hover:text-white">Blog</a><span class="mx-2" aria-hidden="true">/</span>
+                    <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span>
+                    <a wire:navigate href="{{ route('blog.index') }}" class="hover:text-white">Blog</a><span class="mx-2" aria-hidden="true">/</span>
                     <span aria-current="page">{{ $post->title }}</span>
                 </nav>
                 <div class="mt-8">
@@ -65,14 +68,14 @@
     </article>
 
     @if ($relatedPosts->isNotEmpty())
-        <section class="bg-slate-50 py-20 sm:py-24">
+        <section class="brand-surface py-20 sm:py-24">
             <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <x-ui.section-heading eyebrow="Continue reading" title="Related insights." />
                 <div class="mt-10 grid gap-5 md:grid-cols-3">
                     @foreach ($relatedPosts as $related)
                         <x-ui.card interactive>
                             <p class="text-xs font-bold uppercase tracking-wider text-brand-600">{{ $related->category?->name ?? 'Insights' }}</p>
-                            <h2 class="mt-3 text-xl font-bold text-ink-950"><a href="{{ route('blog.show', $related) }}">{{ $related->title }}</a></h2>
+                            <h2 class="mt-3 text-xl font-bold text-ink-950"><a wire:navigate href="{{ route('blog.show', $related) }}">{{ $related->title }}</a></h2>
                             <p class="mt-3 text-sm leading-6 text-slate-600">{{ $related->excerpt }}</p>
                         </x-ui.card>
                     @endforeach

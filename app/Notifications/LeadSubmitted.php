@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\ContactMessage;
 use App\Models\QuoteRequest;
+use App\Models\SiteSetting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -49,11 +50,21 @@ class LeadSubmitted extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        $settings = SiteSetting::values();
+
         return (new MailMessage)
             ->subject($this->type.' from '.$this->name)
-            ->greeting($this->type)
-            ->line($this->name.' ('.$this->email.') submitted a new enquiry.')
-            ->line($this->summary)
-            ->action('Review in STNA Panel', $this->adminUrl);
+            ->view('emails.lead-submitted', [
+                'type' => $this->type,
+                'name' => $this->name,
+                'email' => $this->email,
+                'summary' => $this->summary,
+                'adminUrl' => $this->adminUrl,
+                'siteName' => $settings->get('site_name') ?: config('app.name'),
+                'logoUrl' => $settings->get('logo') ? asset('storage/'.$settings->get('logo')) : null,
+                'contactEmail' => $settings->get('contact_email') ?: config('mail.from.address'),
+                'contactPhone' => $settings->get('contact_phone'),
+                'contactAddress' => $settings->get('contact_address'),
+            ]);
     }
 }

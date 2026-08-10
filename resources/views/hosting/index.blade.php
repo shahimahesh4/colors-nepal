@@ -1,8 +1,8 @@
 <x-layouts.app title="Web Hosting" description="Explore managed web hosting plans from Colors Nepal with clear monthly and yearly pricing.">
-    <section class="relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
+    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
         <div class="absolute -right-20 -top-20 size-72 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true"></div>
         <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Hosting</span></nav>
+            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Hosting</span></nav>
             <div class="mt-8 max-w-4xl">
                 <x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Reliable hosting</x-ui.badge>
                 <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Hosting that stays understandable.</h1>
@@ -48,7 +48,7 @@
         </div>
     </section>
 
-    <section class="bg-slate-50 py-20 sm:py-24">
+    <section class="brand-surface py-20 sm:py-24">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <x-ui.section-heading eyebrow="Included support" title="A practical hosting relationship." description="Hosting works best when ownership, maintenance, backups, and support expectations are clear." />
             <div class="mt-10 grid gap-5 md:grid-cols-3">

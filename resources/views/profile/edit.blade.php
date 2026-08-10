@@ -1,5 +1,5 @@
 <x-layouts.app title="Profile" description="Update your Colors Nepal customer account.">
-<section class="bg-slate-50 py-16 sm:py-20"><div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8"><div class="rounded-feature border border-slate-200 bg-white p-6 shadow-card sm:p-8">
+<section class="brand-surface py-16 sm:py-20"><div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8"><div class="brand-panel rounded-feature border border-brand-100 bg-white p-6 shadow-card sm:p-8">
 <h1 class="text-3xl font-bold text-ink-950">Account profile</h1><p class="mt-3 text-sm leading-6 text-slate-600">Update your details or set a new password.</p>
 @if(session('success'))<div class="mt-6"><x-ui.alert title="Saved" variant="success">{{ session('success') }}</x-ui.alert></div>@endif
 <form method="POST" action="{{ route('profile.update') }}" class="mt-8 grid gap-5">@csrf @method('PUT')

@@ -1,7 +1,7 @@
 <x-layouts.app title="Request a Quote" description="Request a practical website, marketing, SEO, hosting, maintenance, or digital-service quote from Colors Nepal.">
-    <section class="bg-ink-950 py-16 text-white sm:py-20">
+    <section class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Request a quote</span></nav>
+            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Request a quote</span></nav>
             <div class="mt-8 max-w-3xl">
                 <p class="text-sm font-bold uppercase tracking-[0.16em] text-accent-400">Plan your project</p>
                 <h1 class="mt-4 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Give us the essentials. We will help shape the scope.</h1>
@@ -13,7 +13,7 @@
     <section class="py-16 sm:py-20">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             @if (session('success'))<div class="mb-6"><x-ui.alert title="Request received" variant="success">{{ session('success') }}</x-ui.alert></div>@endif
-            <form method="POST" action="{{ route('quote.store') }}" class="grid gap-6 rounded-feature border border-slate-200 bg-white p-6 shadow-card sm:grid-cols-2 sm:p-8">
+            <form method="POST" action="{{ route('quote.store') }}" class="grid gap-6 brand-panel rounded-feature border border-brand-100 bg-white p-6 shadow-card sm:grid-cols-2 sm:p-8">
                 @csrf
                 <div class="hidden" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
                 <x-ui.input label="Name" name="name" autocomplete="name" required />
@@ -56,7 +56,8 @@
 
                 <div class="sm:col-span-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <p class="text-xs leading-5 text-slate-500">Your request will appear in the secure lead workflow for review.</p>
-                    <x-ui.button type="submit" size="lg">Submit project request</x-ui.button>
+                    <x-recaptcha />
+<x-ui.button type="submit" size="lg">Submit project request</x-ui.button>
                 </div>
             </form>
         </div>

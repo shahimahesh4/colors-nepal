@@ -20,6 +20,8 @@ class ServicePagesTest extends TestCase
         $this->get(route('services.index'))
             ->assertOk()
             ->assertSee('Published service')
+            ->assertSee('service-card', false)
+            ->assertSee('Learn more')
             ->assertDontSee('Draft service');
     }
 
@@ -31,6 +33,7 @@ class ServicePagesTest extends TestCase
             'status' => 'published',
             'meta_title' => 'SEO strategy for growing organizations',
             'meta_description' => 'A focused SEO service description.',
+            'meta_keywords' => 'seo strategy, technical seo, Nepal',
         ]);
         ServiceFeature::factory()->for($service)->create(['title' => 'Technical review']);
         ServiceFaq::factory()->for($service)->create(['question' => 'How does the process begin?', 'answer' => 'It begins with a focused review.']);
@@ -42,7 +45,8 @@ class ServicePagesTest extends TestCase
             ->assertSee('How does the process begin?')
             ->assertSee('It begins with a focused review.')
             ->assertSee('SEO strategy for growing organizations')
-            ->assertSee('A focused SEO service description.');
+            ->assertSee('A focused SEO service description.')
+            ->assertSee('seo strategy, technical seo, Nepal');
     }
 
     public function test_draft_service_detail_returns_not_found(): void

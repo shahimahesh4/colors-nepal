@@ -7,7 +7,7 @@
 
 @php
     $variants = [
-        'primary' => 'bg-brand-600 text-white shadow-sm hover:bg-brand-700',
+        'primary' => 'brand-action',
         'secondary' => 'border border-slate-300 bg-white text-slate-900 hover:border-brand-300 hover:bg-brand-50',
         'ghost' => 'text-slate-700 hover:bg-slate-100 hover:text-slate-950',
         'danger' => 'bg-red-600 text-white shadow-sm hover:bg-red-700',
@@ -25,7 +25,7 @@
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->class($classes) }}>{{ $slot }}</a>
+    <a wire:navigate href="{{ $href }}" {{ $attributes->class($classes) }}>{{ $slot }}</a>
 @else
     <button type="{{ $type }}" {{ $attributes->class($classes) }}>{{ $slot }}</button>
 @endif

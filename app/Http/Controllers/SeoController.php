@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Page;
 use App\Models\PortfolioProject;
 use App\Models\Service;
 use Illuminate\Http\Response;
@@ -13,6 +14,7 @@ class SeoController extends Controller
     public function sitemap(): Response
     {
         $data = Cache::remember('public-sitemap-data', now()->addHour(), fn () => [
+            'pages' => Page::query()->where('status', 'published')->orderBy('id')->get(['slug', 'updated_at']),
             'services' => Service::query()->where('status', 'published')->orderBy('id')->get(['slug', 'updated_at']),
             'projects' => PortfolioProject::query()->where('status', 'published')->orderBy('id')->get(['slug', 'updated_at']),
             'posts' => BlogPost::query()->where('status', 'published')->whereNotNull('published_at')->where('published_at', '<=', now())->orderBy('id')->get(['slug', 'updated_at']),

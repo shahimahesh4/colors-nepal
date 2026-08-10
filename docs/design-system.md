@@ -2,14 +2,14 @@
 
 ## Direction
 
-Colors Nepal uses an original, modern digital-agency identity: a dark ink foundation, confident indigo actions, and restrained cyan accents. The system is mobile-first, accessible, fast, and intentionally independent from the Niwax reference assets and branding.
+Colors Nepal uses an original, modern digital-agency identity: a dark ink foundation with energetic pink, orange, yellow, teal, and blue accents. The system is mobile-first, accessible, fast, and intentionally independent from the Niwax reference assets and branding.
 
 ## Color tokens
 
-- Ink: `#0b1220` for high-emphasis headings
-- Brand 600: `#4f46e5` for primary actions and focus
-- Brand 700: `#4338ca` for primary hover states
-- Accent 500: `#06b6d4` for selective highlights
+- Ink: `#0d1b2a` for high-emphasis headings
+- Brand 600: `#0066cc` for links, focus, and trusted actions
+- Creative Pink: `#e63980` and Orange: `#ff8a00` for primary calls to action
+- Yellow: `#ffc107` and Teal: `#00b4a6` for selective highlights
 - Neutral surfaces: white and Tailwind slate
 - Feedback: emerald success, amber warning, and red danger
 
@@ -65,7 +65,7 @@ Tailwind's mobile-first breakpoints remain unchanged: `sm`, `md`, `lg`, `xl`, an
 
 - Maintain visible labels; placeholders never replace labels
 - All interactive targets are at least 44px where practical
-- Use a visible 2px indigo focus outline with offset
+- Use a visible 2px brand-blue focus outline with offset
 - Preserve semantic heading order
 - Error messages are connected with `aria-describedby`
 - Invalid fields use `aria-invalid`
