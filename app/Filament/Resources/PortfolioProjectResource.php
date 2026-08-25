@@ -33,7 +33,7 @@ class PortfolioProjectResource extends Resource
                 Forms\Components\TextInput::make('client_name')->maxLength(255),
                 Forms\Components\Textarea::make('summary')->required()->rows(3)->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')->columnSpanFull(),
-                Forms\Components\FileUpload::make('cover_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('portfolio')->imageEditor(),
+                Forms\Components\FileUpload::make('cover_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('portfolio')->imageResizeMode('contain')->imageResizeTargetWidth('1600')->imageResizeTargetHeight('1200')->imageResizeUpscale(false)->imageEditor(),
                 Forms\Components\TagsInput::make('technologies'),
                 Forms\Components\TextInput::make('project_url')->url()->maxLength(255),
                 Forms\Components\DatePicker::make('completed_at'),
@@ -45,7 +45,7 @@ class PortfolioProjectResource extends Resource
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->rows(3),
                 Forms\Components\TextInput::make('meta_keywords')->helperText('Separate keywords with commas.')->columnSpanFull(),
-                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('portfolio/og')->imageEditor()->helperText('Optional. Uses the cover image, then the default OG image when empty.'),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('portfolio/og')->imageResizeMode('cover')->imageResizeTargetWidth('1200')->imageResizeTargetHeight('630')->imageResizeUpscale(false)->imageEditor()->helperText('Recommended: 1200 × 630px. Uses the cover image, then the default OG image when empty.'),
             ])->columns(2)->collapsed(),
         ]);
     }

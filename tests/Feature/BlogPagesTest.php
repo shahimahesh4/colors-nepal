@@ -41,6 +41,17 @@ class BlogPagesTest extends TestCase
             ->assertNotFound();
     }
 
+    public function test_blog_index_can_be_searched(): void
+    {
+        BlogPost::factory()->create(['title' => 'Laravel Website Planning']);
+        BlogPost::factory()->create(['title' => 'Social Media Guide']);
+
+        $this->get(route('blog.index', ['search' => 'Laravel']))
+            ->assertOk()
+            ->assertSee('Laravel Website Planning')
+            ->assertDontSee('Social Media Guide');
+    }
+
     public function test_published_blog_post_detail_includes_seo_and_article_schema(): void
     {
         $post = BlogPost::factory()->create([

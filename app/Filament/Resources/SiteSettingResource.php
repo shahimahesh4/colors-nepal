@@ -17,6 +17,8 @@ class SiteSettingResource extends Resource
     use AuthorizesRolePermissions;
     protected static ?string $model = SiteSetting::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static ?string $navigationGroup = 'System';
@@ -79,6 +81,6 @@ class SiteSettingResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => Pages\ListSiteSettings::route('/'), 'create' => Pages\CreateSiteSetting::route('/create'), 'edit' => Pages\EditSiteSetting::route('/{record}/edit')];
+        return [];
     }
 }

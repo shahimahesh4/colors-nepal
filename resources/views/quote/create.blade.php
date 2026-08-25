@@ -1,14 +1,5 @@
 <x-layouts.app title="Request a Quote" description="Request a practical website, marketing, SEO, hosting, maintenance, or digital-service quote from Colors Nepal.">
-    <section class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Request a quote</span></nav>
-            <div class="mt-8 max-w-3xl">
-                <p class="text-sm font-bold uppercase tracking-[0.16em] text-accent-400">Plan your project</p>
-                <h1 class="mt-4 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Give us the essentials. We will help shape the scope.</h1>
-                <p class="mt-6 text-lg leading-8 text-slate-300">Choose the services you need and share your goals. Estimates are reviewed by a person, not generated automatically.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Give us the essentials. We will help shape the scope." breadcrumb="Request a quote" eyebrow="Plan your project" description="Choose the services you need and share your goals. Estimates are reviewed by a person, not generated automatically." />
 
     <section class="py-16 sm:py-20">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

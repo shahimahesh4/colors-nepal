@@ -55,7 +55,10 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
     @if ($pageKeywords)<meta name="keywords" content="{{ $pageKeywords }}">@endif
     <link rel="canonical" href="{{ $canonicalUrl }}">
-    @if ($favicon)<link rel="icon" href="{{ asset('storage/'.$favicon) }}">@endif
+    @if ($favicon)
+        <link rel="icon" href="{{ asset('storage/'.$favicon) }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/'.$favicon) }}">
+    @endif
 
     <meta property="og:type" content="{{ $type }}">
     <meta property="og:title" content="{{ $pageTitle }}">

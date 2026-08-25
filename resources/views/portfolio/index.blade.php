@@ -2,24 +2,7 @@
     title="Portfolio"
     description="Explore published Colors Nepal website, marketing, branding, and digital project case studies."
 >
-    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
-        <div class="absolute inset-0 opacity-50" aria-hidden="true">
-            <div class="absolute -left-24 bottom-0 size-72 rounded-full bg-brand-600/25 blur-3xl"></div>
-            <div class="absolute -right-20 top-0 size-72 rounded-full bg-accent-500/15 blur-3xl"></div>
-        </div>
-        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
-                <span class="mx-2" aria-hidden="true">/</span>
-                <span aria-current="page">Portfolio</span>
-            </nav>
-            <div class="mt-8 max-w-4xl">
-                <x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Selected work</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Work shaped around the problem, not a template.</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">Browse published projects and case studies across web, marketing, branding, and digital experience work.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Work shaped around the problem, not a template." breadcrumb="Portfolio" eyebrow="Selected work" description="Browse published projects and case studies across web, marketing, branding, and digital experience work." />
 
     <section class="py-20 sm:py-24">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -42,7 +25,7 @@
                         <article class="group overflow-hidden brand-panel rounded-feature border border-brand-100 bg-white transition hover:-translate-y-1 hover:shadow-card-hover">
                             <a wire:navigate href="{{ route('portfolio.show', $project) }}" class="block overflow-hidden">
                                 @if ($project->cover_image)
-                                    <img src="{{ asset('storage/'.$project->cover_image) }}" alt="{{ $project->title }}" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy">
+                                    <x-responsive-image :path="$project->cover_image" :alt="$project->title" sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                                 @else
                                     <div class="grid aspect-[4/3] place-items-center bg-gradient-to-br from-brand-100 via-slate-100 to-accent-400/20" aria-hidden="true">
                                         <span class="text-5xl font-bold text-brand-700/25">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>

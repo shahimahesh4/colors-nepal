@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSetting extends Model
 {
@@ -19,6 +20,15 @@ class SiteSetting extends Model
     protected function uploadedFileAttributes(): array
     {
         return ($this->type === 'image' || $this->getOriginal('type') === 'image') ? ['value'] : [];
+    }
+
+    protected function deleteUploadedFile(mixed $path): void
+    {
+        if (! is_string($path) || $path === '' || $path === 'settings/home-hero-default.png') {
+            return;
+        }
+
+        Storage::disk('public')->delete($path);
     }
 
     public static function values(): Collection

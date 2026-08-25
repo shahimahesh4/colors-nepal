@@ -2,41 +2,7 @@
     title="About"
     description="Learn how Colors Nepal approaches digital strategy, design, development, marketing, and long-term support."
 >
-    <section class="brand-hero relative isolate overflow-hidden bg-ink-950 py-20 text-white sm:py-24 lg:py-28">
-        <div class="absolute inset-0 -z-10" aria-hidden="true">
-            <div class="absolute -left-20 top-10 size-72 rounded-full bg-brand-600/25 blur-3xl"></div>
-            <div class="absolute -right-24 bottom-0 size-80 rounded-full bg-accent-500/15 blur-3xl"></div>
-        </div>
-        <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8">
-            <div>
-                <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                    <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
-                    <span class="mx-2" aria-hidden="true">/</span>
-                    <span aria-current="page">About</span>
-                </nav>
-                <x-ui.badge class="mt-8 bg-white/10 text-brand-100 ring-white/15">About Colors Nepal</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Digital capability with a practical point of view.</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{{ $aboutIntro }}</p>
-            </div>
-
-            <div class="relative mx-auto w-full max-w-md">
-                <div class="grid rotate-2 grid-cols-2 gap-3 rounded-feature border border-white/10 bg-white/5 p-5 backdrop-blur">
-                    @foreach ([
-                        ['01', 'Listen closely'],
-                        ['02', 'Think clearly'],
-                        ['03', 'Build carefully'],
-                        ['04', 'Improve steadily'],
-                    ] as [$number, $label])
-                        <div class="aspect-square rounded-card border border-white/10 bg-white/5 p-4">
-                            <span class="text-xs font-bold text-accent-400">{{ $number }}</span>
-                            <p class="mt-12 font-bold text-white">{{ $label }}</p>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="absolute -bottom-5 -left-4 rounded-card bg-brand-600 px-5 py-3 text-sm font-bold shadow-xl">Clear work. Useful outcomes.</div>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Digital capability with a practical point of view." breadcrumb="About" eyebrow="About Colors Nepal" :description="$aboutIntro" />
 
     <section class="py-20 sm:py-24">
         <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
@@ -117,7 +83,7 @@
                     @foreach ($teamMembers as $member)
                         <x-ui.card class="overflow-hidden p-0">
                             @if ($member->photo)
-                                <img src="{{ asset('storage/'.$member->photo) }}" alt="{{ $member->name }}" class="aspect-[4/3] w-full object-cover" loading="lazy">
+                                <x-responsive-image :path="$member->photo" :alt="$member->name" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" class="aspect-[4/3] w-full object-cover" />
                             @else
                                 <div class="grid aspect-[4/3] place-items-center bg-gradient-to-br from-brand-100 to-accent-400/20" aria-hidden="true">
                                     <span class="text-4xl font-bold text-brand-700">{{ collect(explode(' ', $member->name))->map(fn ($part) => mb_substr($part, 0, 1))->take(2)->join('') }}</span>

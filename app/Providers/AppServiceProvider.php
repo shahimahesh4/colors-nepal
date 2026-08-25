@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\SiteSetting;
 use App\Models\Service;
 use App\Models\SocialLink;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,18 +24,18 @@ class AppServiceProvider extends ServiceProvider
         );
 
         View::composer('components.site-footer', function ($view): void {
-            $view->with('socialLinks', SocialLink::query()
-                ->where('is_active', true)
-                ->orderBy('sort_order')
-                ->orderBy('name')
-                ->get(['name', 'icon', 'url']));
+            $view->with('socialLinks', Cache::rememberForever('footer-social-links', fn () => SocialLink::query()
+                    ->where('is_active', true)
+                    ->orderBy('sort_order')
+                    ->orderBy('name')
+                    ->get(['name', 'icon', 'url'])));
         });
         View::composer('components.site-header', function ($view): void {
-            $view->with('headerServices', Service::query()
-                ->where('status', 'published')
-                ->orderByDesc('is_featured')
-                ->orderBy('sort_order')
-                ->get(['id', 'title', 'slug']));
+            $view->with('headerServices', Cache::rememberForever('header-services', fn () => Service::query()
+                    ->where('status', 'published')
+                    ->orderByDesc('is_featured')
+                    ->orderBy('sort_order')
+                    ->get(['id', 'title', 'slug'])));
         });
     }
 }

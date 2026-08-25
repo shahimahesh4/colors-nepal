@@ -42,7 +42,7 @@ class PageResource extends Resource
                 Forms\Components\RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('image')->label('Page image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('pages')->imageEditor(),
+                Forms\Components\FileUpload::make('image')->label('Page image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('pages')->imageResizeMode('contain')->imageResizeTargetWidth('1600')->imageResizeTargetHeight('1200')->imageResizeUpscale(false)->imageEditor(),
                 Forms\Components\Select::make('status')
                     ->options(['draft' => 'Draft', 'published' => 'Published'])
                     ->required()
@@ -54,7 +54,7 @@ class PageResource extends Resource
                 Forms\Components\TextInput::make('meta_keywords')
                     ->helperText('Separate keywords with commas.')
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('pages/og')->imageEditor()->helperText('Optional. Uses the page image, then the default OG image when empty.')->columnSpanFull(),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('pages/og')->imageResizeMode('cover')->imageResizeTargetWidth('1200')->imageResizeTargetHeight('630')->imageResizeUpscale(false)->imageEditor()->helperText('Recommended: 1200 × 630px. Uses the page image, then the default OG image when empty.')->columnSpanFull(),
             ])->columns(2)->collapsed(),
         ]);
     }

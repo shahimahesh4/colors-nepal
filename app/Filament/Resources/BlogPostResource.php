@@ -33,7 +33,7 @@ class BlogPostResource extends Resource
                 Forms\Components\TextInput::make('slug')->required()->maxLength(255)->unique(ignoreRecord: true),
                 Forms\Components\Textarea::make('excerpt')->required()->rows(3)->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')->required()->columnSpanFull(),
-                Forms\Components\FileUpload::make('featured_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog')->imageEditor(),
+                Forms\Components\FileUpload::make('featured_image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog')->imageResizeMode('contain')->imageResizeTargetWidth('1600')->imageResizeTargetHeight('1200')->imageResizeUpscale(false)->imageEditor(),
                 Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
                 Forms\Components\DateTimePicker::make('published_at')->seconds(false),
             ])->columns(2),
@@ -41,7 +41,7 @@ class BlogPostResource extends Resource
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->rows(3),
                 Forms\Components\TextInput::make('meta_keywords')->helperText('Separate keywords with commas.')->columnSpanFull(),
-                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog/og')->imageEditor()->helperText('Optional. Uses the featured image, then the default OG image when empty.'),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('blog/og')->imageResizeMode('cover')->imageResizeTargetWidth('1200')->imageResizeTargetHeight('630')->imageResizeUpscale(false)->imageEditor()->helperText('Recommended: 1200 × 630px. Uses the featured image, then the default OG image when empty.'),
             ])->columns(2)->collapsed(),
         ]);
     }

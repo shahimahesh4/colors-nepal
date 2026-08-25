@@ -4,30 +4,7 @@
     :keywords="$project->meta_keywords"
     :image="$project->og_image ? asset('storage/'.$project->og_image) : ($project->cover_image ? asset('storage/'.$project->cover_image) : null)"
 >
-    <section class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span>
-                <a wire:navigate href="{{ route('portfolio.index') }}" class="hover:text-white">Portfolio</a><span class="mx-2" aria-hidden="true">/</span>
-                <span aria-current="page">{{ $project->title }}</span>
-            </nav>
-            <div class="mt-8 max-w-4xl">
-                @if ($project->category)<p class="text-sm font-bold uppercase tracking-[0.16em] text-accent-400">{{ $project->category->name }}</p>@endif
-                <h1 class="mt-4 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">{{ $project->title }}</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{{ $project->summary }}</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-ink-950 pb-16 sm:pb-20">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            @if ($project->cover_image)
-                <img src="{{ asset('storage/'.$project->cover_image) }}" alt="{{ $project->title }}" class="aspect-[16/9] w-full rounded-feature object-cover shadow-2xl">
-            @else
-                <div class="aspect-[16/9] rounded-feature bg-gradient-to-br from-brand-600/60 via-brand-800 to-accent-500/30" aria-hidden="true"></div>
-            @endif
-        </div>
-    </section>
+    <x-page-banner :title="$project->title" :eyebrow="$project->category?->name ?: 'Portfolio'" :description="$project->summary" parent-label="Portfolio" :parent-url="route('portfolio.index')" />
 
     <section class="py-20 sm:py-24">
         <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">

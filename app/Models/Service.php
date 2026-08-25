@@ -7,6 +7,7 @@ use App\Models\Concerns\DeletesUploadedFiles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class Service extends Model
 {
@@ -32,5 +33,11 @@ class Service extends Model
     public function faqs(): HasMany
     {
         return $this->hasMany(ServiceFaq::class)->orderBy('sort_order');
+    }
+
+    protected static function booted(): void
+    {
+        static::saved(fn () => Cache::forget('header-services'));
+        static::deleted(fn () => Cache::forget('header-services'));
     }
 }

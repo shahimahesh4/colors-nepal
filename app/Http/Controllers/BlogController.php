@@ -39,6 +39,13 @@ class BlogController extends Controller
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where('published_at', '<=', now())
+                ->when($request->filled('search'), function ($query) use ($request): void {
+                    $search = $request->string('search')->trim()->toString();
+                    $query->where(function ($query) use ($search): void {
+                        $query->where('title', 'like', '%'.$search.'%')
+                            ->orWhere('excerpt', 'like', '%'.$search.'%');
+                    });
+                })
                 ->when($category, fn ($query) => $query->whereBelongsTo($category, 'category'))
                 ->latest('published_at')
                 ->paginate(9)
@@ -54,15 +61,14 @@ class BlogController extends Controller
 
         return view('blog.show', [
             'post' => $post,
-            'relatedPosts' => BlogPost::query()
+            'recentPosts' => BlogPost::query()
                 ->with(['author', 'category'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where('published_at', '<=', now())
                 ->whereKeyNot($post->getKey())
-                ->when($post->blog_category_id, fn ($query) => $query->where('blog_category_id', $post->blog_category_id))
                 ->latest('published_at')
-                ->limit(3)
+                ->limit(6)
                 ->get(),
         ]);
     }

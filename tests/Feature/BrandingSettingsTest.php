@@ -37,6 +37,7 @@ class BrandingSettingsTest extends TestCase
         $this->assertStringContainsString('content="Default agency description."', $html);
         $this->assertStringContainsString('name="keywords" content="web design, seo, nepal"', $html);
         $this->assertStringContainsString('href="'.asset('storage/settings/favicon.png').'"', $html);
+        $this->assertStringContainsString('rel="apple-touch-icon" sizes="180x180" href="'.asset('storage/settings/favicon.png').'"', $html);
         $this->assertStringContainsString('src="'.asset('storage/settings/logo.png').'"', $html);
         $this->assertStringContainsString(asset('storage/settings/mobile-logo.png'), $html);
         $this->assertStringContainsString('"logo":"'.asset('storage/settings/logo.png').'"', $html);

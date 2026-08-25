@@ -9,46 +9,28 @@
             <div class="absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.04)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
         </div>
 
-        <div class="mx-auto grid max-w-6xl items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-28">
+        @php
+            $heroUrl = fn (?string $value, string $fallback): string => str_starts_with($value ?: '', 'http') ? $value : url($value ?: $fallback);
+        @endphp
+        <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-24">
             <div>
-                <x-ui.badge variant="brand" class="bg-white/10 text-brand-100 ring-white/15">Nepal-based digital agency</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                    Digital work built to move your business forward.
+                <h1 class="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                    {{ $hero['title'] }}
                 </h1>
                 <p class="mt-6 max-w-2xl text-pretty text-lg leading-8 text-slate-300">
-                    We bring websites, marketing, SEO, hosting, and ongoing support into one clear, maintainable digital partnership.
+                    {{ $hero['description'] }}
                 </p>
                 <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <x-ui.button href="{{ url('/request-quote') }}" size="lg">Start a project</x-ui.button>
-                    <x-ui.button href="{{ url('/portfolio') }}" variant="secondary" size="lg" class="border-white/20 bg-white/5 text-white hover:border-white/30 hover:bg-white/10">
-                        Explore our work
-                    </x-ui.button>
+                    @if($hero['primary_label'])<x-ui.button href="{{ $heroUrl($hero['primary_url'], '/request-quote') }}" size="lg">{{ $hero['primary_label'] }}</x-ui.button>@endif
                 </div>
-                <p class="mt-6 text-sm text-slate-400">Strategy, design, development, launch, and growth support.</p>
             </div>
 
-            <div class="relative mx-auto w-full max-w-lg" aria-label="Connected digital services">
-                <div class="rounded-feature border border-white/10 bg-white/5 p-5 shadow-2xl backdrop-blur sm:p-7">
-                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                        <div>
-                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-accent-400">One connected system</p>
-                            <p class="mt-1 font-semibold">Your digital growth stack</p>
-                        </div>
-                        <span class="size-3 rounded-full bg-emerald-400 shadow-[0_0_20px_rgb(52_211_153/0.8)]"></span>
-                    </div>
-                    <div class="mt-5 grid gap-3 sm:grid-cols-2">
-                        @foreach (['Web experiences', 'Search visibility', 'Digital campaigns', 'Reliable hosting'] as $item)
-                            <div class="rounded-card border border-white/10 bg-white/5 p-4">
-                                <span class="mb-4 block size-2 rounded-full bg-accent-400"></span>
-                                <p class="font-semibold text-white">{{ $item }}</p>
-                                <p class="mt-1 text-sm text-slate-400">Planned to work together.</p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="absolute -bottom-5 -left-3 rounded-card border border-brand-300/20 bg-brand-600 px-5 py-3 text-sm font-semibold shadow-xl sm:-left-8">
-                    Clear strategy. Clean delivery.
-                </div>
+            <div class="home-hero-media relative mx-auto flex min-h-[20rem] w-full max-w-2xl items-center justify-center lg:min-h-[30rem]">
+                @if($hero['image'])
+                    <x-responsive-image :path="$hero['image']" :alt="$hero['image_alt']" sizes="(min-width: 1024px) 50vw, 100vw" loading="eager" fetchpriority="high" class="max-h-[34rem] w-full object-contain drop-shadow-[0_28px_45px_rgb(0_0_0/0.38)]" />
+                @else
+                    <x-home-hero-placeholder class="max-h-[32rem] drop-shadow-[0_28px_45px_rgb(0_0_0/0.28)]" />
+                @endif
             </div>
         </div>
     </section>
@@ -74,7 +56,7 @@
                 <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                     @foreach ($services as $service)
                         <article class="service-card group" style="--service-delay: {{ $loop->index * 90 }}ms">
-                            <x-service-icon :index="$loop->index" />
+                            <x-service-icon :title="$service->title" />
                             <h3 class="service-card__title"><a wire:navigate href="{{ route('services.show', $service) }}" class="after:absolute after:inset-0">{{ $service->title }}</a></h3>
                             <p class="service-card__copy">{{ $service->summary }}</p>
                             <span class="service-card__link">Learn more <svg class="service-card__arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7 4 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -130,17 +112,17 @@
             />
             <ol class="process-grid colorful-grid mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ([
-                    ['Consult', 'Understand goals and constraints.'],
-                    ['Strategize', 'Choose the right priorities.'],
-                    ['Design', 'Shape the experience and message.'],
-                    ['Develop', 'Build a reliable implementation.'],
-                    ['Launch', 'Prepare and release carefully.'],
-                    ['Market', 'Reach the intended audience.'],
-                    ['Optimize', 'Learn and improve over time.'],
-                ] as [$title, $copy])
+                    ['Consult', 'Understand goals and constraints.', 'consult'],
+                    ['Strategize', 'Choose the right priorities.', 'strategize'],
+                    ['Design', 'Shape the experience and message.', 'design'],
+                    ['Develop', 'Build a reliable implementation.', 'develop'],
+                    ['Launch', 'Prepare and release carefully.', 'launch'],
+                    ['Market', 'Reach the intended audience.', 'market'],
+                    ['Optimize', 'Learn and improve over time.', 'optimize'],
+                ] as [$title, $copy, $icon])
                     <li class="process-card rounded-card border p-6">
                         <div class="process-card__heading">
-                            <span class="process-card__number" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="process-card__icon" aria-hidden="true"><x-process-icon :name="$icon" /></span>
                             <span class="process-card__label">Step {{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                         </div>
                         <h2 class="mt-6 text-lg font-bold text-ink-950">{{ $title }}</h2>
@@ -162,7 +144,7 @@
                     @foreach ($projects as $project)
                         <article class="overflow-hidden rounded-feature border border-white/10 bg-white/5">
                             @if ($project->cover_image)
-                                <img src="{{ asset('storage/'.$project->cover_image) }}" alt="" class="aspect-[16/10] w-full object-cover" loading="lazy">
+                                <x-responsive-image :path="$project->cover_image" alt="" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" class="aspect-[16/10] w-full object-cover" />
                             @else
                                 <div class="aspect-[16/10] bg-gradient-to-br from-brand-600/40 to-accent-500/20" aria-hidden="true"></div>
                             @endif

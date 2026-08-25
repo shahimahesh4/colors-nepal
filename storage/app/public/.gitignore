@@ -1,2 +1,12 @@
 *
 !.gitignore
+!settings/
+settings/*
+!settings/home-hero-default.png
+!settings/home-hero-default.webp
+!settings/home-hero-default-*.webp
+!banners/
+banners/*
+!banners/library/
+!banners/library/*.png
+!banners/library/*.webp

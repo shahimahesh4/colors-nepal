@@ -2,21 +2,7 @@
     title="Services"
     description="Explore Colors Nepal services for website design and development, digital marketing, SEO, social media, hosting, domains, and maintenance."
 >
-    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
-        <div class="absolute -right-24 -top-24 size-80 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true"></div>
-        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
-                <span class="mx-2" aria-hidden="true">/</span>
-                <span aria-current="page">Services</span>
-            </nav>
-            <div class="mt-8 max-w-3xl">
-                <x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Services</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Useful digital capability, without unnecessary complexity.</h1>
-                <p class="mt-6 text-lg leading-8 text-slate-300">Choose a focused service or combine several into a coordinated plan built around your priorities.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Useful digital capability, without unnecessary complexity." breadcrumb="Services" eyebrow="Services" description="Choose a focused service or combine several into a coordinated plan built around your priorities." />
 
     <section class="service-showcase">
         <div class="service-showcase__dots service-showcase__dots--left" aria-hidden="true"></div>
@@ -29,7 +15,7 @@
                             @if ($service->is_featured)
                                 <x-ui.badge class="absolute right-4 top-4">Featured</x-ui.badge>
                             @endif
-                            <x-service-icon :index="$loop->index" />
+                            <x-service-icon :title="$service->title" />
                             <h2 class="service-card__title">
                                 <a wire:navigate href="{{ route('services.show', $service) }}" class="after:absolute after:inset-0">{{ $service->title }}</a>
                             </h2>

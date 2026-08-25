@@ -4,16 +4,7 @@
         $contactPhone = $siteSettings->get('contact_phone') ?: '+977 9800000000';
         $contactAddress = $siteSettings->get('contact_address') ?: 'Kathmandu, Nepal';
     @endphp
-    <section class="brand-hero bg-ink-950 py-16 text-white sm:py-20">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Contact</span></nav>
-            <div class="mt-8 max-w-3xl">
-                <p class="text-sm font-bold uppercase tracking-[0.16em] text-accent-400">Start a conversation</p>
-                <h1 class="mt-4 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Tell us what you need help with.</h1>
-                <p class="mt-6 text-lg leading-8 text-slate-300">Share a question or challenge. We will review it and respond with a practical next step.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Tell us what you need help with." breadcrumb="Contact" eyebrow="Start a conversation" description="Share a question or challenge. We will review it and respond with a practical next step." />
 
     <section class="py-16 sm:py-20">
         <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">

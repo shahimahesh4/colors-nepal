@@ -8,28 +8,28 @@
 <div class="color-spectrum absolute inset-x-0 top-0 h-1" aria-hidden="true"></div>
 <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
 <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-<div><a wire:navigate href="{{ url('/') }}" class="inline-flex rounded-control bg-white px-3 py-2" aria-label="Colors Nepal home"><x-brand /></a><p class="mt-5 text-sm leading-7 text-slate-400">Practical digital services for a clear, reliable, and maintainable online presence.</p>@if($socialLinks->isNotEmpty())<div class="mt-6 flex flex-wrap gap-3" aria-label="Social media">@foreach($socialLinks as $social)<a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="grid size-10 place-items-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:-translate-y-1 hover:border-accent-400 hover:bg-accent-500 hover:text-white" aria-label="{{ $social->name }} (opens in a new tab)"><x-social-icon :platform="$social->icon" class="size-5" /></a>@endforeach</div>@endif</div>
+<div><h2 class="text-sm font-bold uppercase tracking-wider text-white">About Us</h2><p class="mt-4 text-sm leading-7 text-slate-400">Practical digital services for a clear, reliable, and maintainable online presence.</p>@if($socialLinks->isNotEmpty())<div class="mt-6 flex flex-wrap gap-3" aria-label="Social media">@foreach($socialLinks as $social)<a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="grid size-10 place-items-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:-translate-y-1 hover:border-accent-400 hover:bg-accent-500 hover:text-white" aria-label="{{ $social->name }} (opens in a new tab)"><x-social-icon :platform="$social->icon" class="size-5" /></a>@endforeach</div>@endif</div>
 <div>
     <h2 class="text-sm font-bold uppercase tracking-wider text-white">Contact</h2>
     <address class="mt-4 grid gap-3 text-sm not-italic leading-6">
         <p class="flex items-center gap-3">
-            <span class="w-5 shrink-0 text-center text-creative-pink" aria-hidden="true">&#9679;</span>
+            <svg class="size-5 shrink-0 text-creative-pink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 21h16M6 21V7l6-4 6 4v14M9 10h6M9 14h6M9 18h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <strong class="text-white">{{ $siteName }}</strong>
         </p>
         <p class="flex items-center gap-3">
-            <span class="w-5 shrink-0 text-center text-accent-400" aria-hidden="true">&#9673;</span>
+            <svg class="size-5 shrink-0 text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg>
             <span>{{ $contactAddress }}</span>
         </p>
         <a class="flex items-center gap-3 hover:text-white" href="tel:{{ preg_replace('/[^+0-9]/', '', $contactPhone) }}">
-            <span class="w-5 shrink-0 text-center text-creative-orange" aria-hidden="true">&#9742;</span>
+            <svg class="size-5 shrink-0 text-creative-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7.2 3.5 4.6 4.7c-1 .5-1.5 1.6-1.2 2.7 1.6 6.3 6.9 11.6 13.2 13.2 1.1.3 2.2-.2 2.7-1.2l1.2-2.6-4.2-2-1.3 2a15 15 0 0 1-7.8-7.8l2-1.3-2-4.2Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>{{ $contactPhone }}</span>
         </a>
         <a class="flex items-center gap-3 hover:text-white" href="mailto:{{ $contactEmail }}">
-            <span class="w-5 shrink-0 text-center text-creative-yellow" aria-hidden="true">&#9993;</span>
+            <svg class="size-5 shrink-0 text-creative-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>{{ $contactEmail }}</span>
         </a>
         <a wire:navigate class="flex items-center gap-3 hover:text-white" href="{{ route('home') }}">
-            <span class="w-5 shrink-0 text-center text-brand-400" aria-hidden="true">&#9678;</span>
+            <svg class="size-5 shrink-0 text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>www.coloursnepal.com</span>
         </a>
     </address>

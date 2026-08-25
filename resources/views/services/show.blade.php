@@ -4,28 +4,8 @@
     :keywords="$service->meta_keywords"
     :image="$service->og_image ? asset('storage/'.$service->og_image) : ($service->image ? asset('storage/'.$service->image) : null)"
 >
-    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
-        <div class="absolute -left-24 bottom-0 size-72 rounded-full bg-accent-500/15 blur-3xl" aria-hidden="true"></div>
-        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb">
-                <a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a>
-                <span class="mx-2" aria-hidden="true">/</span>
-                <a wire:navigate href="{{ route('services.index') }}" class="hover:text-white">Services</a>
-                <span class="mx-2" aria-hidden="true">/</span>
-                <span aria-current="page">{{ $service->title }}</span>
-            </nav>
-            <div class="mt-8 max-w-4xl">
-                @if ($service->is_featured)<x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Featured service</x-ui.badge>@endif
-                <h1 class="mt-5 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">{{ $service->title }}</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{{ $service->summary }}</p>
-                <div class="mt-8"><x-ui.button href="{{ url('/request-quote') }}" size="lg">Discuss this service</x-ui.button></div>
-            </div>
-        </div>
-    </section>
+    <x-page-banner :title="$service->title" :eyebrow="$service->is_featured ? 'Featured service' : 'Service'" :description="$service->summary" parent-label="Services" :parent-url="route('services.index')" />
 
-    @if ($service->image)
-        <div class="bg-ink-950 pb-12 sm:pb-16"><div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"><img src="{{ asset('storage/'.$service->image) }}" alt="{{ $service->title }}" class="aspect-[16/9] w-full rounded-feature object-cover shadow-2xl"></div></div>
-    @endif
     @if ($service->features->isNotEmpty())
         <section class="py-20 sm:py-24">
             <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

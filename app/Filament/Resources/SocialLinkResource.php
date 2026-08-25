@@ -16,6 +16,8 @@ class SocialLinkResource extends Resource
 {
     use AuthorizesRolePermissions;
     protected static ?string $model = SocialLink::class;
+
+    protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationIcon = 'heroicon-o-share';
     protected static ?string $navigationGroup = 'System';
     protected static ?int $navigationSort = 95;
@@ -49,6 +51,6 @@ class SocialLinkResource extends Resource
 
     public static function getPages(): array
     {
-        return ['index' => Pages\ListSocialLinks::route('/'), 'create' => Pages\CreateSocialLink::route('/create'), 'edit' => Pages\EditSocialLink::route('/{record}/edit')];
+        return [];
     }
 }

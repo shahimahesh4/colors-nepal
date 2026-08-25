@@ -1,15 +1,5 @@
 <x-layouts.app title="Domain Registration" description="Compare active domain registration and renewal pricing available through Colors Nepal.">
-    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
-        <div class="absolute -left-20 bottom-0 size-72 rounded-full bg-accent-500/20 blur-3xl" aria-hidden="true"></div>
-        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Domains</span></nav>
-            <div class="mt-8 max-w-4xl">
-                <x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Domain services</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Choose a domain you can build around.</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">Review currently active extensions and transparent registration and renewal prices. Availability is confirmed before purchase.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Choose a domain you can build around." breadcrumb="Domains" eyebrow="Domain services" description="Review currently active extensions and transparent registration and renewal prices. Availability is confirmed before purchase." />
 
     <section class="py-20 sm:py-24">
         <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

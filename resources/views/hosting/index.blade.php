@@ -1,15 +1,5 @@
 <x-layouts.app title="Web Hosting" description="Explore managed web hosting plans from Colors Nepal with clear monthly and yearly pricing.">
-    <section class="brand-hero relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
-        <div class="absolute -right-20 -top-20 size-72 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true"></div>
-        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <nav class="text-sm text-slate-400" aria-label="Breadcrumb"><a wire:navigate href="{{ route('home') }}" class="hover:text-white">Home</a><span class="mx-2" aria-hidden="true">/</span><span aria-current="page">Hosting</span></nav>
-            <div class="mt-8 max-w-4xl">
-                <x-ui.badge class="bg-white/10 text-brand-100 ring-white/15">Reliable hosting</x-ui.badge>
-                <h1 class="mt-6 text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Hosting that stays understandable.</h1>
-                <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">Choose a published plan for your current needs. We can help with setup, migration, SSL, backups, and ongoing maintenance.</p>
-            </div>
-        </div>
-    </section>
+    <x-page-banner title="Hosting that stays understandable." breadcrumb="Hosting" eyebrow="Reliable hosting" description="Choose a published plan for your current needs. We can help with setup, migration, SSL, backups, and ongoing maintenance." />
 
     <section class="py-20 sm:py-24">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

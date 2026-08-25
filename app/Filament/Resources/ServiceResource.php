@@ -34,7 +34,7 @@ class ServiceResource extends Resource
                 Forms\Components\Textarea::make('summary')->required()->rows(3)->columnSpanFull(),
                 Forms\Components\RichEditor::make('content')->columnSpanFull(),
                 Forms\Components\TextInput::make('icon')->maxLength(255),
-                Forms\Components\FileUpload::make('image')->label('Service image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services')->imageEditor(),
+                Forms\Components\FileUpload::make('image')->label('Service image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services')->imageResizeMode('contain')->imageResizeTargetWidth('1600')->imageResizeTargetHeight('1200')->imageResizeUpscale(false)->imageEditor(),
                 Forms\Components\Select::make('status')->options(['draft' => 'Draft', 'published' => 'Published'])->required()->default('draft'),
                 Forms\Components\Toggle::make('is_featured')->default(false),
                 Forms\Components\TextInput::make('sort_order')->numeric()->minValue(0)->required()->default(0),
@@ -43,7 +43,7 @@ class ServiceResource extends Resource
                 Forms\Components\TextInput::make('meta_title')->maxLength(255),
                 Forms\Components\Textarea::make('meta_description')->rows(3),
                 Forms\Components\TextInput::make('meta_keywords')->helperText('Separate keywords with commas.')->columnSpanFull(),
-                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services/og')->imageEditor()->helperText('Optional. Uses the service image, then the default OG image when empty.'),
+                Forms\Components\FileUpload::make('og_image')->label('OG image')->image()->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])->maxSize(5120)->disk('public')->visibility('public')->directory('services/og')->imageResizeMode('cover')->imageResizeTargetWidth('1200')->imageResizeTargetHeight('630')->imageResizeUpscale(false)->imageEditor()->helperText('Recommended: 1200 × 630px. Uses the service image, then the default OG image when empty.'),
             ])->columns(2)->collapsed(),
         ]);
     }

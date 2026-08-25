@@ -27,7 +27,9 @@ trait DeletesUploadedFiles
 
     protected function deleteUploadedFile(mixed $path): void
     {
-        if (is_string($path) && $path !== '') {
+        if (is_string($path)
+            && $path !== ''
+            && ! str_starts_with($path, 'banners/library/')) {
             Storage::disk('public')->delete($path);
         }
     }
